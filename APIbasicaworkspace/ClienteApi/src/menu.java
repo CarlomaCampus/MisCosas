@@ -35,7 +35,7 @@ public class menu {
 		case "2": try { getFactura(); } catch (IOException e) { e.printStackTrace(); }; break;
 		case "3": try { postFactura(); } catch (IOException e) { e.printStackTrace(); }; break;
 		case "4": try { putFactura(); } catch (IOException e) { e.printStackTrace(); }; break;
-		case "5": break;
+		case "5": try { deleteFactura(); } catch (IOException e) { e.printStackTrace(); }; break;
 		case "6": break;
 		default: System.out.println("Numero invalido");break;
 		
@@ -44,6 +44,26 @@ public class menu {
 	
 	}while(!opcion.equals("6"));
 		
+		
+	}
+
+		private static void deleteFactura() throws IOException {
+			
+			String lineaoutput;
+			
+			System.out.println("Introduce el id que quieras eliminar:");
+			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8888/ServerApi/facturas/"+ entrada.nextLine()).openConnection();
+			con.setRequestMethod("DELETE");
+			con.setRequestProperty("Accept", "application/json");
+			int codigorespuesta = con.getResponseCode();
+			System.out.println("Código de respuesta: "+ codigorespuesta+ " y los datos de retorno son: ");
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			
+			while((lineaoutput = br.readLine()) != null) {
+				System.out.println(lineaoutput);
+			}
+			
+			con.disconnect();
 		
 	}
 

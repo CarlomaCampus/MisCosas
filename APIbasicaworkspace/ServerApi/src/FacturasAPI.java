@@ -157,7 +157,7 @@ import com.google.gson.Gson;
 				System.out.println("Error");
 			}
 			if (borrada) {
-				return Response.status(200).build();
+				return Response.status(200).entity("Borrado con éxito").build();
 			} else {
 				return Response.status(404).build();
 			}
